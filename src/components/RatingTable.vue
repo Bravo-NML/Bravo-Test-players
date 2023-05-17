@@ -77,6 +77,8 @@ methods: {
       td{
         background-color: white;
         color: #340225;
+        outline-offset: -2px;
+        outline: 2px solid hsla(318, 93%, 11%, 0.5);
       }
     }
   }

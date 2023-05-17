@@ -15,7 +15,7 @@
           v-model="item.name"
         >
 
-        <button class="button" href="#" @click.prevent="minusLife(item)">-</button>
+        <button class="button" href="#" @click.prevent="minusLife(item)">–</button>
 
         <span class="lifeCount">{{item.life}}</span>
         
@@ -86,14 +86,15 @@ export default {
     }
 
     .button {
-      min-width: 16px;
-      height: 16px;
-      padding: 0;
+      min-width: 24px;
+      height: 24px;
+      padding: 5px;
       text-decoration: none;
       font-weight: bold;
-      color: white;
+      color: #ffffff;
       background-color: #340225;
-      border-radius: 100%;
+      border-radius: 5px;
+      // font-size: 2em;
 
       cursor: pointer;
 
@@ -113,7 +114,7 @@ export default {
 
     .lifeCount {
       margin: 0 12px;
-      width: 32px;
+      min-width: 32px;
     }
 }
 
