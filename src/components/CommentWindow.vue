@@ -1,6 +1,6 @@
 <template>
   <Transition name="flow">
-    <div v-show="commentShown" class="commentWindow">
+    <div v-show="commentShown" :class="classModifier">
       <slot></slot>
     </div>
   </Transition>
@@ -12,10 +12,24 @@ name: 'CommentWindow',
 
 props: {
   commentShown: {
+    background: String,
     type: Boolean
   },
 },
+
+computed: {
+
+  classModifier() {
+    if(this.background){
+      return 'commentWindow commentWindow_' + this.background;
+    }
+    return 'commentWindow'
+  }
+
+},
+
 }
+
 </script>
 
 <style scoped lang="scss">

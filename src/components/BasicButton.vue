@@ -1,13 +1,18 @@
 <template>
-  <button class="basicButton">
+  <button :class="'basicButton ' + buttonType">
     <slot></slot>
-
   </button>
 </template>
 
 <script>
 export default {
   name: 'BasicButton',
+
+  props: {
+    buttonType: {
+      type: String
+    },
+  },
 }
 </script>
 
@@ -15,16 +20,18 @@ export default {
 .basicButton{
   cursor: pointer;
 
-  outline: none !important;
-  border-radius: 10px;
+  outline: none;
+  border-radius: 5px;
   padding: 10px;
 
-  border: 2px solid #340225 !important;
+  border: 2px solid #340225;
   background-color: white;
 
   font-weight: bold;
   transition: transform .1s linear, background-color .1s linear, color .1s linear;
+}
 
+.createButton{
   &:active{
     transform: scale(.9);
   }
@@ -36,11 +43,15 @@ export default {
 }
 
 .toggleButton{
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  background-color: #340225;
-  color: white;
+  border: none;
+  border-bottom: 2px solid #340225;
+  border-radius: 0;
+  width: 120px;
+
+  &_active{
+    background-color: #340225;
+    color: white;
+  }
 }
 
 .createButton{

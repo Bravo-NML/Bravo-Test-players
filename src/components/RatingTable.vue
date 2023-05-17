@@ -2,7 +2,7 @@
   <div>
     <h2>Рейтинг</h2>
 
-    <div v-if="!rating[0]">Тут тоже пока ничего нет</div>
+    <div v-if="!rating.length">Тут тоже пока ничего нет</div>
     
     <table class="ratingTable">
       <tr class="tableRow"
@@ -10,14 +10,17 @@
         :key="index"
         >
         <td v-text="`${index + 1}`"></td>
-        <td v-html="`У игрока <b>${item.name}</b> ${item.life} ${livesText(item.life)}`"></td>
+        <td v-html="playerText(item)"></td>
       </tr>
     </table>
   </div>
 </template>
 
 <script>
+import { declinationOfNumberCurrying as getConj} from '../ConjGenerator.js';
+
 export default {
+
 name: 'RatingTable',
 
 props: {
@@ -33,29 +36,14 @@ data () {
 },
 
 methods: {
-  livesText(n){
-      if (n > 10 && n < 15) {
-        return 'жизней'
-      }
+    livesText(n){
+        const getWord = getConj(['жизнь', 'жизни', 'жизней'])
 
-      const lastCher = n > 10 ? (n).toString().slice(-1) : (n).toString()
-      let str = ''
+        return getWord(n)
+    },
 
-      switch (lastCher) {
-        case '1':
-          str = 'жизнь'
-          break
-        case '2':
-        case '3':
-        case '4':
-          str = 'жизни'
-          break
-        default:
-          str = 'жизней'
-          break
-      }
-
-      return str
+    playerText(item){
+      return `У игрока <b>${item.name}</b> ${item.life} ${this.livesText(item.life)}`
     }
   },
 }

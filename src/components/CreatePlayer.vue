@@ -1,34 +1,37 @@
 <template>
-    <h1>Добавить нового игрока</h1>
-    <div class="row">
-        <input 
-            id="name" 
-            @focus="commentShown = false" 
-            type="text" 
-            v-model="players_name" 
-            placeholder="Имя"
-        />
-        <input 
-            id="life" 
-            @focus="commentShown = false" 
-            type="number" 
-            v-model="players_life" 
-            placeholder="Жизней"
-        />
-        <BasicButton @click="createPlayer()">Создать</BasicButton>
-    </div>
+    <div>
+        <h1>Добавить нового игрока</h1>
+        <div class="row">
+            <input 
+                id="name" 
+                @focus="commentShown = false" 
+                type="text" 
+                v-model="players_name" 
+                placeholder="Имя"
+            />
+            <input 
+                id="life" 
+                @focus="commentShown = false" 
+                type="number" 
+                v-model="players_life" 
+                placeholder="Жизней"
+            />
+            <BasicButton buttonType="createButton" @click="createPlayer()">Создать</BasicButton>
+        </div>
 
-    <CommentWindow 
-        :commentShown="commentShown" 
-        :class="'commentWindow_' + comment.background"
-    >
-        {{ comment.text }}
-    </CommentWindow>
+        <CommentWindow 
+            :commentShown="commentShown" 
+            :background="comment.background"
+        >
+            {{ comment.text }}
+        </CommentWindow>
+    </div>
 </template>
 
 <script>
 import BasicButton from './BasicButton.vue'
 import CommentWindow from './CommentWindow.vue'
+import { declinationOfNumberCurrying as getConj} from '../ConjGenerator.js'
 
 export default {
   name: 'CreatePlayer',
@@ -52,11 +55,9 @@ export default {
 
   methods: {
     createPlayer() {
-        if (this.checkIfError()) {
-            this.commentShown = true
-            return
-        }
         this.commentShown = true
+
+        if (this.checkIfError()) return
 
         const newPlayer = {
             'name': this.players_name,
@@ -66,7 +67,7 @@ export default {
         this.players_name = '';
         this.players_life = '';
 
-        this.$emit('handle-players-list', newPlayer);
+        this.$emit('handle-create-player', newPlayer);
     },
 
     checkIfError(){
@@ -97,23 +98,9 @@ export default {
     },
 
     livesText(n){
-        if (n === 11) {
-            return 'жизнями'
-        }
+        const getWord = getConj(['жизнью', 'жизнями', 'жизнями'])
 
-        const lastCher = n > 10 ? (n).toString().slice(-1) : (n).toString()
-        let str = ''
-
-        switch (lastCher) {
-          case '1':
-            str = 'жизнью'
-            break
-          default:
-            str = 'жизнями'
-            break
-        }
-
-        return str
+        return getWord(n)
     }
   },
 }
@@ -140,5 +127,6 @@ export default {
     width: 70px;
     padding: 5px;
     border: 2px solid #340225 !important;
+    border-radius: 5px;
 }
 </style>

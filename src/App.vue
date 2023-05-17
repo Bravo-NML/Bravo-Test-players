@@ -1,15 +1,26 @@
 <template>
+  <div>
+    <div class="tabs">
+      <BasicButton
+        :buttonType="`${currentPage === CREATE_PLAYER ? 'toggleButton_active' : ''} toggleButton`" 
+        @click="changePage(CREATE_PLAYER)"
+      >
+        Создать
+      </BasicButton>
 
-  <Transition name="pageChange">
-    <div v-if="currentPage === CREATE_PLAYER">
-      <CreatePlayer @handle-players-list="createdPlayers" />
+      <BasicButton
+        :buttonType="`${currentPage === EDIT_PLAYERS ? 'toggleButton_active' : ''} toggleButton`" 
+        @click="changePage(EDIT_PLAYERS)"
+      >
+        Редактировать
+      </BasicButton>
     </div>
-    <div v-else-if="currentPage === EDIT_PLAYERS">
-      <EditPlayers :playersList="playersList" />
-    </div>
-  </Transition> 
 
-  <BasicButton class="toggleButton" @click="changePage()">{{ buttonName }}</BasicButton>
+    <Transition name="pageChange">
+      <CreatePlayer v-if="currentPage === CREATE_PLAYER" @handle-create-player="createdPlayers" />
+      <EditPlayers v-else-if="currentPage === EDIT_PLAYERS" :playersList="playersList" />
+    </Transition> 
+  </div>
 </template>
 
 <script>
@@ -19,29 +30,20 @@ import BasicButton from './components/BasicButton.vue'
 
 export default {
   name: 'App',
+
   components: {
     CreatePlayer,
     EditPlayers,
     BasicButton,
   },
+
   data() {
     return {
       playersList: [],
       currentPage: "createPlayer",
+      CREATE_PLAYER: 'createPlayer',
+      EDIT_PLAYERS: 'editPlayer',
     }
-  },
-
-  setup () {
-    const CREATE_PLAYER = 'createPlayer';
-    const EDIT_PLAYERS = 'editPlayer';
-
-    return {
-        CREATE_PLAYER, EDIT_PLAYERS
-    }
-  },   
-
-  created() {
-    
   },
 
   computed: {
@@ -58,26 +60,26 @@ export default {
   },
 
   methods: {
+    changePage(page) {
+      this.currentPage = page
+    },
+
     createdPlayers(newPlayer) {
       this.playersList.push(newPlayer);
     },
-
-    changePage(){
-      switch (this.currentPage) {
-        case this.CREATE_PLAYER:
-          this.currentPage = this.EDIT_PLAYERS
-          break;
-
-        case this.EDIT_PLAYERS:
-          this.currentPage = this.CREATE_PLAYER
-          break;
-      }
-    }
   },
 }
 </script>
 
 <style>
+.tabs{
+  width: 50%;
+  margin: 0 auto;
+
+  display: flex;
+  justify-content: space-between;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

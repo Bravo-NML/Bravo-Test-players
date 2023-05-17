@@ -1,28 +1,29 @@
 <template>
-  <h1>Редактирование игроков</h1>
+  <div>
+    <h1>Редактирование игроков</h1>
 
-  <div v-if="!rating[0]">Тут пока ничего нет</div>
+    <div v-if="!rating[0]">Тут пока ничего нет</div>
 
-  <div
-    v-for="(item, index) in usersLife"
-    :key="index"
-    class="row"
-  >
-      <input 
-        class="name" 
-        placeholder="Пожалуйста, не оставляйте это поле пустым" 
-        v-model="item.name"
-      >
+    <div
+      v-for="(item, index) in usersLife"
+      :key="index"
+      class="row"
+    >
+        <input 
+          class="name" 
+          placeholder="Пожалуйста, не оставляйте это поле пустым" 
+          v-model="item.name"
+        >
 
-      <a class="button" href="#" @click.prevent="minusLife(item)">-</a>
+        <button class="button" href="#" @click.prevent="minusLife(item)">-</button>
 
-      <span class="lifeCount">{{item.life}}</span>
-      
-      <a class="button" href="#" @click.prevent="plusLife(item)">+</a>  
-  </div>
+        <span class="lifeCount">{{item.life}}</span>
+        
+        <button class="button" href="#" @click.prevent="plusLife(item)">+</button>  
+    </div>
 
-  <RatingTable :rating="rating"/>
-  
+    <RatingTable :rating="rating"/>
+  </div>  
 </template>
 
 <script>
@@ -39,20 +40,6 @@ export default {
 
   components: {
     RatingTable,
-  },
-  
-  data () {
-    return {
-    };
-  },
-  
-  created() {
-    for (let i = 0; i < this.playersList; i++) {
-      this.usersLife.push({
-        name: this.playersList.name,
-        life: this.playersList.life
-      });
-    }
   },
   
   computed: {
@@ -73,7 +60,6 @@ export default {
     },
 
     minusLife (item) {
-
       if (item.life > 0) {
         item.life--;
       }
@@ -102,15 +88,20 @@ export default {
     .button {
       min-width: 16px;
       height: 16px;
+      padding: 0;
       text-decoration: none;
       font-weight: bold;
       color: white;
       background-color: #340225;
       border-radius: 100%;
 
+      cursor: pointer;
+
       display: flex;
       align-items: center;
       justify-content: center;
+      outline: none !important;
+      border: none !important;
 
       transition: transform .1s linear;
 
