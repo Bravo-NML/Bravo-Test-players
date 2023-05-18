@@ -10,7 +10,10 @@ export default {
 
   props: {
     buttonType: {
-      type: String
+      type: String,
+      validator(value) {
+        return ['createButton', 'toggleButton', 'toggleButtonActive'].includes(value)
+      }
     },
   },
 }
@@ -47,11 +50,14 @@ export default {
   border-bottom: 2px solid #340225;
   border-radius: 0;
   width: 120px;
+}
 
-  &_active{
-    background-color: #340225;
-    color: white;
-  }
+.toggleButtonActive{
+  width: 120px;
+  border: none;
+  border-radius: 0;
+  background-color: #340225;
+  color: white;
 }
 
 .createButton{

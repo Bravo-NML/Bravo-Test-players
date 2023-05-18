@@ -15,14 +15,16 @@ props: {
     type: Boolean
   },
   background:{
-    type: String
+    type: String,
+    validator(value) {
+      return ['red', 'green', 'none'].includes(value)
+    }
   },
 },
 
 computed: {
 
   classModifier() {
-    console.log(this.background);
     if(this.background){
       return 'commentWindow commentWindow_' + this.background;
     }

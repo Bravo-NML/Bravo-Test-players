@@ -48,7 +48,7 @@ export default {
       commentShown: false,
       comment: {
         text: '',
-        background: '',
+        background: 'none',
       }   
     };
   },

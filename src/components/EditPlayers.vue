@@ -2,7 +2,7 @@
   <div>
     <h1>Редактирование игроков</h1>
 
-    <div v-if="!rating[0]">Тут пока ничего нет</div>
+    <div v-if="!rating.length">Тут пока ничего нет</div>
 
     <div
       v-for="(item, index) in usersLife"

@@ -2,14 +2,14 @@
   <div>
     <div class="tabs">
       <BasicButton
-        :buttonType="`${currentPage === CREATE_PLAYER ? 'toggleButton_active' : ''} toggleButton`" 
+        :buttonType="currentPage === CREATE_PLAYER ? 'toggleButtonActive' : 'toggleButton'" 
         @click="changePage(CREATE_PLAYER)"
       >
         Создать
       </BasicButton>
 
       <BasicButton
-        :buttonType="`${currentPage === EDIT_PLAYERS ? 'toggleButton_active' : ''} toggleButton`" 
+        :buttonType="currentPage === EDIT_PLAYERS ? 'toggleButtonActive' : 'toggleButton'" 
         @click="changePage(EDIT_PLAYERS)"
       >
         Редактировать
