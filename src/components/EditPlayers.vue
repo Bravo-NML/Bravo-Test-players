@@ -1,29 +1,27 @@
 <template>
-  <div>
     <h1>Редактирование игроков</h1>
 
     <div v-if="!rating.length">Тут пока ничего нет</div>
 
     <div
-      v-for="(item, index) in usersLife"
+      v-for="(user, index) in users"
       :key="index"
       class="row"
     >
         <input 
           class="name" 
           placeholder="Пожалуйста, не оставляйте это поле пустым" 
-          v-model="item.name"
+          v-model="user.name"
         >
 
-        <button class="button" href="#" @click.prevent="minusLife(item)">–</button>
+        <button class="button" @click.prevent="updateLife(user, 'inc')">–</button>
 
-        <span class="lifeCount">{{item.life}}</span>
+        <span class="lifeCount">{{user.life}}</span>
         
-        <button class="button" href="#" @click.prevent="plusLife(item)">+</button>  
+        <button class="button" @click.prevent="updateLife(user, 'dec')">+</button>  
     </div>
 
     <RatingTable :rating="rating"/>
-  </div>  
 </template>
 
 <script>
@@ -43,27 +41,18 @@ export default {
   },
   
   computed: {
-    usersLife () {
+    users () {
       return [...this.playersList]
     },
     rating () {
-      let places = [...this.usersLife];
-  
-      places.sort((a, b) => b.life - a.life);
-      return places;
+      return [...this.users].sort((a, b) => b.life - a.life);
     }
   },
   
   methods: {
-    plusLife (item) {
-      item.life++;
+    updateLife (user, action) {
+      action === 'dec' ? user.life++ : user.life > 0 ? user.life-- : 0;
     },
-
-    minusLife (item) {
-      if (item.life > 0) {
-        item.life--;
-      }
-    }
   },
 }
 </script>

@@ -1,5 +1,4 @@
 <template>
-  <div>
     <h2>Рейтинг</h2>
 
     <div v-if="!rating.length">Тут тоже пока ничего нет</div>
@@ -13,11 +12,10 @@
         <td v-html="playerText(item)"></td>
       </tr>
     </table>
-  </div>
 </template>
 
 <script>
-import { declinationOfNumberCurrying as getConj} from '../ConjGenerator.js';
+import { decl as decl} from '../ConjGenerator.js';
 
 export default {
 
@@ -30,16 +28,14 @@ props: {
 },
 
 data () {
-  return {
-    players: [],
-  };
+  return {};
 },
 
 methods: {
     livesText(n){
-        const getWord = getConj(['жизнь', 'жизни', 'жизней'])
+      const textArray = ['жизнь', 'жизни', 'жизней'];
 
-        return getWord(n)
+      return textArray[decl(n)];
     },
 
     playerText(item){
