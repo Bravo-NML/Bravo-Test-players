@@ -1,37 +1,35 @@
 <template>
-    <div>
-        <h1>Добавить нового игрока</h1>
-        <div class="row">
-            <input 
-                id="name" 
-                @focus="commentShown = false" 
-                type="text" 
-                v-model="players_name" 
-                placeholder="Имя"
-            />
-            <input 
-                id="life" 
-                @focus="commentShown = false" 
-                type="number" 
-                v-model="players_life" 
-                placeholder="Жизней"
-            />
-            <BasicButton buttonType="createButton" @click="createPlayer()">Создать</BasicButton>
-        </div>
-
-        <CommentWindow 
-            :commentShown="commentShown" 
-            :background="comment.background"
-        >
-            {{ comment.text }}
-        </CommentWindow>
+    <h1>Добавить нового игрока</h1>
+    <div class="row">
+        <input 
+            id="name" 
+            @focus="commentShown = false" 
+            type="text" 
+            v-model="players_name" 
+            placeholder="Имя"
+        />
+        <input 
+            id="life" 
+            @focus="commentShown = false" 
+            type="number" 
+            v-model="players_life" 
+            placeholder="Жизней"
+        />
+        <BasicButton buttonType="createButton" @click="createPlayer()">Создать</BasicButton>
     </div>
+
+    <CommentWindow 
+        :commentShown="commentShown" 
+        :background="comment.background"
+    >
+        {{ comment.text }}
+    </CommentWindow>
 </template>
 
 <script>
 import BasicButton from './BasicButton.vue'
 import CommentWindow from './CommentWindow.vue'
-import { declinationOfNumberCurrying as getConj} from '../ConjGenerator.js'
+import { decl as decl} from '../ConjGenerator.js';
 
 export default {
   name: 'CreatePlayer',
@@ -98,9 +96,9 @@ export default {
     },
 
     livesText(n){
-        const getWord = getConj(['жизнью', 'жизнями', 'жизнями'])
+      const textArray = ['жизнь', 'жизни', 'жизней'];
 
-        return getWord(n)
+      return textArray[decl(n)];
     }
   },
 }

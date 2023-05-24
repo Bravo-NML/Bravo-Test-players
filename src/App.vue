@@ -47,16 +47,6 @@ export default {
   },
 
   computed: {
-    buttonName() {
-      if (this.currentPage === this.EDIT_PLAYERS) {
-        return 'Создать'
-      }
-      if (this.currentPage === this.CREATE_PLAYER) {
-        return 'Редактировать'
-      }
-
-      return ''
-    }
   },
 
   methods: {
